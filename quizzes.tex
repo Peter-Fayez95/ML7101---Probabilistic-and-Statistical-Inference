@@ -1,0 +1,370 @@
+\documentclass[a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath, amsfonts, amssymb}
+\usepackage{graphicx}
+\usepackage{multicol}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage[compact]{titlesec}
+\usepackage{setspace}
+\usepackage[a4paper, margin=0cm]{geometry}
+
+% Shrink font aggressively
+\renewcommand\normalsize{\tiny}
+\normalsize
+\setstretch{0.75}
+
+% Remove all vertical spacing everywhere
+\setlength{\parskip}{0pt}
+\setlength{\parindent}{0pt}
+\setlist{noitemsep, topsep=0pt, partopsep=0pt, parsep=0pt, itemsep=0pt}
+
+% Section formatting tiny
+\titleformat*{\section}{\tiny\bfseries}
+\titlespacing*{\section}{0pt}{0.3ex}{0.2ex}
+
+% Column spacing minimal
+\setlength{\columnsep}{0.25cm}
+
+% Red bold answers
+\newcommand{\answer}[1]{\textcolor{red}{\textbf{#1}}}
+
+\begin{document}
+\pagestyle{empty}
+
+\begin{multicols}{2}
+
+\section*{Quiz 1: Estimation and Sampling Distributions}
+\begin{enumerate}
+    \item A parameter is an estimate of a statistic. True / \answer{False}
+    \item The sample mean of a Normal population with mean $\mu$ and variance $\sigma^2$ has which distribution?
+    \begin{enumerate}
+        \item \answer{$N(\mu, \sigma^2/n)$}
+        \item $t$-distribution
+        \item $N(\mu, \sigma^2)$
+        \item Uniform distribution
+    \end{enumerate}
+    \item Which of the following properties of a CDF are TRUE?
+    \begin{enumerate}
+        \item \answer{$F(x)$ is non-decreasing}
+        \item \answer{$\lim_{x\to-\infty} F(x) = 0$ and $\lim_{x\to+\infty} F(x) = 1$}
+        \item \answer{$0 \le F(x) \le 1$}
+        \item $F(x)$ is always continuous
+    \end{enumerate}
+    \item The 95\% confidence interval for estimating $\mu$ is:
+    \begin{enumerate}
+        \item $\bar{X} \pm 1.96 \frac{\sigma^2}{n}$
+        \item $\bar{X} \pm 1.96 \sigma$
+        \item $\bar{X} \pm 1.96 \sigma^2$
+        \item \answer{$\bar{X} \pm 1.96 \frac{\sigma}{\sqrt{n}}$}
+    \end{enumerate}
+    \item The Empirical CDF is a continuous and smooth function. True / \answer{False}
+    \item Convergence in probability is stronger than convergence in distribution. \answer{True} / False
+    \item Which statement about the method of moments estimator is NOT TRUE?
+    \begin{enumerate}
+        \item $\hat{\theta}$ exists with probability 1 under regularity conditions.
+        \item The estimator $\hat{\theta}$ is always unbiased for finite $n$.
+        \item \answer{$\hat{\theta}$ converges in probability to $\theta^*$ as $n \to \infty$.}
+        \item $\sqrt{n}(\hat{\theta} - \theta^*)$ follows exactly a normal distribution for any $n$.
+    \end{enumerate}
+    \item Kullback-Leibler divergence is a symmetric distance measure. True / \answer{False}
+    \item The MLE $\hat{\theta}$ is obtained by maximizing:
+    \begin{enumerate}
+        \item The KL divergence
+        \item The prior distribution
+        \item \answer{The log-likelihood function}
+        \item The empirical CDF
+    \end{enumerate}
+    \item For $X_i \sim \text{Unif}(0, \theta)$, the MLE for $\theta$ is:
+    \begin{enumerate}
+        \item $\min(X_i)$
+        \item $\bar{X}$
+        \item $\sum X_i$
+        \item \answer{$\max(X_i)$}
+    \end{enumerate}
+\end{enumerate}
+
+\section*{Quiz 2: MLE and Fisher Information}
+\begin{enumerate}
+    \item Which are properties of the Maximum Likelihood Estimator (MLE)?
+    \begin{enumerate}
+        \item \answer{Equivariance}
+        \item \answer{Asymptotic normality}
+        \item \answer{Asymptotic efficiency}
+        \item \answer{Consistency}
+    \end{enumerate}
+    \item The score function $s(X; \theta)$ measures:
+    \begin{enumerate}
+        \item \answer{Sensitivity of the log-likelihood to $\theta$}
+        \item Sample variance of $X$
+        \item Bias of the estimator
+        \item Expected value of $X$
+    \end{enumerate}
+    \item For i.i.d. data, Fisher information for $n$ samples is:
+    \begin{enumerate}
+        \item $I_n(\theta) = n^2 I(\theta)$
+        \item \answer{$I_n(\theta) = n I(\theta)$}
+        \item $I_n(\theta) = I(\theta)^n$
+        \item $I_n(\theta) = I(\theta)n$
+    \end{enumerate}
+    \item The Fisher information is:
+    \begin{enumerate}
+        \item \answer{$I(\theta) = \text{Var}_{\theta}[s(X; \theta)]$}
+        \item $I(\theta) = E_{\theta}[s(X; \theta)]$
+        \item $I(\theta) = \text{Cov}_{\theta}[X, s(X; \theta)]$
+        \item \answer{$I(\theta) = E_{\theta}[s(X; \theta)^2]$}
+    \end{enumerate}
+    \item The Cramér-Rao bound describes this best:
+    \begin{enumerate}
+        \item Holds only for biased estimators
+        \item \answer{No unbiased estimator can have smaller variance}
+        \item The variance equals $1/I_n(\theta)$
+        \item Applies only to Normal data
+    \end{enumerate}
+    \item The Delta Method approximates:
+    \begin{enumerate}
+        \item Likelihood function
+        \item \answer{Sampling distribution of a function of an estimator}
+        \item Confidence interval
+        \item Fisher information
+    \end{enumerate}
+    \item For $X_i \sim \text{Bernoulli}(p)$, Fisher information per observation is:
+    \begin{enumerate}
+        \item $\frac{1}{n(p(1-p))}$
+        \item \answer{$\frac{1}{p(1-p)}$}
+        \item $np(1-p)$
+        \item $p(1-p)$
+    \end{enumerate}
+    \item The Wald confidence interval for $\theta$ is:
+    \begin{enumerate}
+        \item \answer{$(\hat{\theta} - z_{\alpha/2}se(\hat{\theta}), \hat{\theta} + z_{\alpha/2}se(\hat{\theta}))$}
+        \item $(z_{\alpha/2}/\hat{\theta}, z_{\alpha/2}\hat{\theta})$
+        \item $(\hat{\theta} - z_{\alpha/2}, \hat{\theta} + z_{\alpha/2})$
+        \item $(\hat{\theta} \pm se(\hat{\theta})^2)$
+    \end{enumerate}
+    \item The asymptotic relative efficiency of $U_n$ vs. $T_n$ is:
+    \begin{enumerate}
+        \item $\pi/2$
+        \item $1$
+        \item \answer{$2/\pi$}
+        \item $0.63$
+    \end{enumerate}
+    \item In bootstrap variance estimation, data are obtained by:
+    \begin{enumerate}
+        \item \answer{Resampling with replacement}
+        \item Generating new i.i.d. samples from F
+        \item Resampling without replacement
+        \item Randomizing indices without replacement
+    \end{enumerate}
+\end{enumerate}
+
+\section*{Quiz 3: Regression and Nonparametric Estimation}
+\begin{enumerate}
+    \item In simple linear regression, which are true about $\varepsilon_i$?
+    \begin{enumerate}
+        \item \answer{Zero mean conditional on X}
+        \item \answer{i.i.d.}
+        \item \answer{Constant variance conditional on X}
+    \end{enumerate}
+    \item OLS estimates $\beta_0$ and $\beta_1$ by minimizing RSS. \answer{True} / False
+    \item A 95\% prediction interval differs from a 95\% CI because:
+    \begin{enumerate}
+        \item It ignores parameter uncertainty
+        \item They are identical at sample mean
+        \item \answer{It includes both parameter uncertainty and observation noise}
+        \item Same width for all x
+    \end{enumerate}
+    \item In logistic regression, the decision boundary is:
+    \begin{enumerate}
+        \item $\sigma(s) = 1$
+        \item $f(X, \beta) = 1$
+        \item \answer{$\sigma(s) = 0.5$, i.e. $f(X, \beta) = 0$}
+        \item Depends on scale of X
+    \end{enumerate}
+    \item The plot shows how estimated error changes with bandwidth h:
+    \begin{enumerate}
+        \item \answer{Very small $h$ gives high variance}
+        \item All of the above
+        \item None of the above
+        \item \answer{Very large $h$ increases bias}
+    \end{enumerate}
+    \item Reducing $h$ always improves accuracy because it reduces bias. True / \answer{False}
+    \item Which is not required for a kernel $K(x)$?
+    \begin{enumerate}
+        \item \answer{Must be Gaussian}
+        \item $\int K(x)dx = 1$
+        \item $K(x) \ge 0$
+        \item $\int xK(x)dx = 0$
+    \end{enumerate}
+    \item In Nadaraya-Watson estimator, closer points get:
+    \begin{enumerate}
+        \item \answer{Higher weights}
+        \item Same weight
+        \item Lower weights
+        \item Negative weights
+    \end{enumerate}
+    \item For histogram with $h^* \propto n^{-1/3}$, MISE convergence rate is:
+    \begin{enumerate}
+        \item \answer{$O(n^{-2/3})$}
+        \item $O(n^{-1/2})$
+        \item $O(n^{-1})$
+        \item $O(n^{-4/5})$
+    \end{enumerate}
+    \item What does the shaded blue area in the plot represent?
+    \begin{enumerate}
+        \item Bandwidth selection curve
+        \item \answer{Range of possible r(x) values at given confidence}
+        \item Bias of estimator
+        \item Variance of errors
+    \end{enumerate}
+\end{enumerate}
+
+\columnbreak
+
+\section*{Quiz 4: Hypothesis Testing}
+\begin{enumerate}
+    \item In hypothesis testing, $H_0$ usually represents:
+    \begin{enumerate}
+        \item The claim that parameter $\in \Theta_1$
+        \item \answer{No effect or no difference}
+        \item Parameter value that always changes
+        \item Claim of observed changes
+    \end{enumerate}
+    \item A hypothesis $H_0: \theta = \theta_0$ is:
+    \begin{enumerate}
+        \item Composite
+        \item Impossible to test
+        \item Nonparametric
+        \item \answer{Simple}
+    \end{enumerate}
+    \item The critical region of a test is:
+    \begin{enumerate}
+        \item All parameter values
+        \item Region of Type II errors
+        \item \answer{Outcomes for which we reject $H_0$}
+        \item Outcomes for which we fail to reject $H_0$
+    \end{enumerate}
+    \item The significance level $\alpha$ of a test is:
+    \begin{enumerate}
+        \item \answer{Probability of Type I error}
+        \item \answer{Probability of rejecting $H_0$ when true}
+        \item \answer{Upper bound on $P(X_n \in \chi_1 | H_0)$}
+        \item All of the above
+    \end{enumerate}
+    \item Match decisions with errors:
+    \begin{enumerate}
+        \item \answer{Fail to reject $H_0$ when $H_1$ true $\to$ Type II error}
+        \item \answer{Reject $H_0$ when $H_0$ true $\to$ Type I error}
+        \item Reject $H_0$ when $H_1$ true $\to$ Type II error
+        \item \answer{Fail to reject $H_0$ when $H_0$ true $\to$ correct decision}
+    \end{enumerate}
+    \item The power of a test against $F_1$ is:
+    \begin{enumerate}
+        \item \answer{$W(F_1) = P(\text{reject } H_0 | F_1)$}
+        \item Type II error probability
+        \item Probability of failing to reject under $H_1$
+        \item Both (a) and (b)
+    \end{enumerate}
+    \item A test is unbiased if:
+    \begin{enumerate}
+        \item Rejects only when $p < 0.05$
+        \item Power $\to 1$ as $n \to \infty$
+        \item Smallest Type I error
+        \item \answer{$W(F_1) \ge W(F_0)$ for all $F_1, F_0$}
+    \end{enumerate}
+    \item A test is most powerful at level $\alpha$ if:
+    \begin{enumerate}
+        \item Smallest possible Type I error
+        \item \answer{Maximizes $P(\text{reject } H_0 | H_1)$}
+        \item \answer{Minimizes $1 - W(F_1)$ among same-level tests}
+        \item Both (b) and (c)
+    \end{enumerate}
+    \item A p-value can be interpreted as:
+    \begin{enumerate}
+        \item Probability $H_0$ is true
+        \item \answer{Smallest $\alpha$ where $H_0$ rejected}
+        \item \answer{Probability (under $H_0$) of observing test statistic as extreme}
+        \item \answer{Measure of evidence against $H_0$}
+    \end{enumerate}
+    \item When testing $H_0: \mu = \mu_0$ for Normal data with known $\sigma^2$, T follows:
+    \begin{enumerate}
+        \item $t$-distribution with $n-1$ d.f.
+        \item \answer{Standard normal}
+        \item Chi-square
+        \item Uniform
+    \end{enumerate}
+\end{enumerate}
+
+\section*{Quiz 5: Hypothesis Testing II}
+\begin{enumerate}
+    \item The Wald test statistic asymptotically follows which distribution under $H_0$?
+    \begin{enumerate}
+        \item Uniform distribution
+        \item $\chi^2$ distribution
+        \item \answer{N(0,1)}
+        \item $t$-distribution
+    \end{enumerate}
+    \item The Wald test rejects $H_0$ iff $\theta_0$ lies outside the $(1-\alpha)\%$ CI.
+    \begin{enumerate}
+        \item \answer{True}
+        \item False
+    \end{enumerate}
+    \item Pearson's chi-squared test statistic asymptotically follows:
+    \begin{enumerate}
+        \item $\chi^2_{k-2}$
+        \item N(0,1)
+        \item $\chi^2_k$
+        \item \answer{$\chi^2_{k-1}$}
+    \end{enumerate}
+    \item Which are properties of the chi-square distribution $\chi^2_k$?
+    \begin{enumerate}
+        \item \answer{$E(\chi^2_k) = k$}
+        \item \answer{If $Z_i \sim N(0,1)$, then $\sum Z_i^2 \sim \chi^2_k$}
+        \item $\chi^2_k$ is symmetric around 0
+        \item \answer{$\text{Var}(\chi^2_k) = 2k$}
+    \end{enumerate}
+    \item The likelihood-ratio test statistic is defined as:
+    \begin{enumerate}
+        \item $\lambda_n = L_n(\hat{\theta}) / L_n(\theta_0)$
+        \item $\lambda_n = 2 L_n(\hat{\theta}) / L_n(\theta_0)$
+        \item $\lambda_n = \log (L_n(\hat{\theta}) / L_n(\theta_0))$
+        \item \answer{$\lambda_n = 2 \log (L_n(\hat{\theta}) / L_n(\theta_0))$}
+    \end{enumerate}
+    \item According to Wilks' theorem, the LRT statistic asymptotically follows:
+    \begin{enumerate}
+        \item $\chi^2_q$
+        \item \answer{$\chi^2_{r-q}$}
+        \item $\chi^2_r$
+        \item N(0,1)
+    \end{enumerate}
+    \item The permutation test requires asymptotic normality.
+    \begin{enumerate}
+        \item True
+        \item \answer{False}
+    \end{enumerate}
+    \item In the permutation test, under $H_0$, all permutations are:
+    \begin{enumerate}
+        \item Following a $\chi^2$ distribution
+        \item \answer{Uniformly distributed (equally likely)}
+        \item Following a $t$-distribution
+        \item Normally distributed
+    \end{enumerate}
+    \item When testing $m$ independent hypotheses, what happens to FWER?
+    \begin{enumerate}
+        \item \answer{FWER increases and approaches 1}
+        \item FWER stays constant at 0.05
+        \item FWER decreases
+        \item FWER remains undefined
+    \end{enumerate}
+    \item The Bonferroni correction controls the FWER by rejecting $H_{0i}$ when:
+    \begin{enumerate}
+        \item $P_i < \alpha$
+        \item $P_i < \alpha \times m$
+        \item \answer{$P_i < \alpha/m$}
+        \item $P_i < \sqrt{\alpha/m}$
+    \end{enumerate}
+\end{enumerate}
+
+\end{multicols}
+\end{document}

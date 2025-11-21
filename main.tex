@@ -1,0 +1,608 @@
+\documentclass[10pt, a4paper, landscape]{article}
+
+% Please DO NOT EDIT THIS CODE
+% If you wish to edit for your own cheatsheet, you can simply make a personal copy on Overleaf and edit (File Menu -> Make a Copy).
+
+% --- UNIVERSAL PREAMBLE BLOCK ---
+% ADDED "includefoot" here so page numbers are not pushed off the page
+\usepackage[a4paper, top=1cm, bottom=1cm, left=1cm, right=1cm, includefoot]{geometry}
+
+% --- FONT CONFIGURATION (PDFLATEX COMPATIBLE) ---
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+
+% Use Helvetica (clean sans-serif) as default font to match the IPhO style
+\usepackage{helvet}
+\renewcommand{\familydefault}{\sfdefault}
+
+% --- PACKAGES FOR LAYOUT & MATH ---
+\usepackage{amsmath, amssymb} % Essential for the formulas
+\usepackage{multicol}         % For the 4-column layout
+\usepackage{enumitem}         % To compact the lists
+\usepackage{titlesec}         % To compact the section headers
+\usepackage{parskip}          % Handles paragraph indentation/spacing
+\usepackage{booktabs}         % For professional looking tables
+\usepackage{tabularx}         % For tables that auto-fit width
+
+% --- CUSTOM STYLING ---
+
+% 1. Compact Lists: Remove vertical space between items
+\setlist[enumerate]{label=\arabic*., leftmargin=*, nosep, itemsep=2pt}
+\setlist[itemize]{label=-, leftmargin=*, nosep, itemsep=2pt}
+
+% 2. Compact Sections: Roman Numerals (I, II...), tighter spacing
+\renewcommand{\thesection}{\Roman{section}}
+\titleformat{\section}
+  {\large\bfseries} % Format: Large and Bold
+  {\thesection}     % Label: I, II, III
+  {0.5em}           % Space between label and title
+  {}
+\titlespacing*{\section}{0pt}{6pt}{2pt} % {left}{before}{after}
+
+% 3. Remove default title spacing AND REMOVED DATE
+\makeatletter
+\renewcommand{\maketitle}{
+  \begin{center}
+    {\Large\bfseries \@title}
+    % Date line removed from here
+  \end{center}
+  \vspace{-1em}
+}
+\makeatother
+
+% --- DOCUMENT CONTENT ---
+\title{Statistical Inference}
+
+\begin{document}
+
+\maketitle
+
+% Begin 3-column layout (set to 4 in your options)
+\begin{multicols*}{4}
+
+% Small font size for the body content to fit more
+\small
+
+\section{Basics}
+\begin{enumerate}
+    \item \textbf{Bayes Theorem}
+Let \(A_1, \ldots, A_k\) be a partition of \(\Omega\) such that \(P(A_i) > 0\) for each \(i\).
+If \(P(B) > 0\), then for each \(i = 1, \ldots, k\),
+\[
+P(A_i \mid B)
+= \frac{P(B \mid A_i)\, P(A_i)}{\sum_{j=1}^k P(B \mid A_j)\, P(A_j)}.
+\]
+    \item Let \(Y = r(X)\), Then \(\mathbb{E}(Y)=\mathbb{E}(r(X))=\int r(x)dF(x)\)
+
+    \item \(\sigma^2 = \mathbb{E}[(X-\mu)^2]=\mathbb{E}(X^2)-\mu^2\)
+    \item $I(X\leq x)=1 $ if $X \leq x$ and $0$ otherwise
+    \item If $a$ and $b$ are constants, \(\mathbb{V}(aX+b)=a^2\mathbb{V}(X)\)
+
+    \item $\operatorname{Cov}(X, Y) = \mathbb{E}\!\left[(X - \mu_X)(Y - \mu_Y)\right]=\mathbb{E}(XY)-\mathbb{E}(X)\mathbb{E}(Y)$
+
+    \item \textbf{Correlation} $\rho(X, Y) = \dfrac{\operatorname{Cov}(X, Y)}{\sigma_X \sigma_Y}$
+
+    \item \textbf{Convergence in probability} \;($X_n \xrightarrow{P} X$): for every $\varepsilon>0$,
+  \[
+    \lim_{n\to\infty}\mathbb{P}\!\left(|X_n - X|>\varepsilon\right)=0.
+  \]
+    \item \textbf{Convergence in distribution} \;($X_n \xrightarrow{d} X$): if $F_n$ and $F$ denote the cdfs of $X_n$ and $X$, then
+  \[
+    \lim_{n\to\infty} F_n(t) = F(t)
+    \quad\forall t \text{ where } F \text{ is continuous.}
+  \]
+    \item $(X_n \xrightarrow{P} X) \implies (X_n \xrightarrow{d} X)$ 
+    \item \textbf{Weak Law of Large Numbers} Let $X_1,\dots X_n$ are IID, then $\bar{X_n}\xrightarrow{P}\mu$
+
+    \item \textbf{Central Limit Theorem (CLT).} Let $X_1,\ldots,X_n$ be i.i.d. with $\mathbb{E}[X_i]=\mu$ and $\mathrm{Var}(X_i)=\sigma^2<\infty$. Let $\bar X_n=\frac{1}{n}\sum_{i=1}^n X_i$. Then 
+    \[
+    Z_n \equiv \frac{\sqrt{n}\,(\bar X_n-\mu)}{\sigma}
+    \xrightarrow{d} \mathcal{N}(0,1).
+    \]
+    \item \textbf{Delta Method.} Suppose $\sqrt{n}\,(Y_n-\mu)\xrightarrow{d}\mathcal{N}(0,\sigma^2)$ and $g$ is differentiable at $\mu$ with $g'(\mu)\neq 0$. Then
+\[
+\frac{\sqrt{n}\,\big(g(Y_n)-g(\mu)\big)}{|g'(\mu)|\,\sigma}\;\xrightarrow{d}\; \mathcal{N}(0,1),
+\]
+equivalently,
+\[
+g(Y_n)\;\xrightarrow{d}\; \mathcal{N}\!\left(g(\mu),\,\frac{(g'(\mu))^2\,\sigma^2}{n}\right).
+\]
+\item An estimator $\hat{\theta}$ is \textbf{unbiased} if $\mathbb{E}(\hat{\theta_n})=\theta$ 
+
+\item An estimator $\hat{\theta}$ is \textbf{consistent} if $\hat{\theta_n}\xrightarrow{P}\theta$ 
+\item An estimator is \textbf{asymptotically normal} if $\dfrac{\hat{\theta_n}-\theta}{\operatorname{se}}\xrightarrow{d}\mathcal{N}(0, 1)$
+\item $\operatorname{MSE}=\mathbb{E}_\theta[(\hat{\theta_n}-\theta)^2]=\operatorname{bias^2}(\hat{\theta}_n)+\mathbb{V_\theta}(\hat{\theta_n})$
+\item Let $\theta$ be a parameter and $X_1,\ldots,X_n$ be data. 
+A $(1-\alpha)$ confidence interval for $\theta$ is a random interval
+$C_n=(a,b)$
+such that, for every $\theta$,
+\[
+\mathbb{P}_\theta\!\left(\theta \in C_n\right) \ge 1-\alpha .
+\]
+
+\item \textbf{Empirical CDF}
+\[
+\hat{F}_n(x)=\frac{1}{n}\sum_{i=1}^n I\{X_i \le x\}
+      = \frac{1}{n}\,\#\{i: X_i \le x\},
+\]
+
+\item \[
+\mathbb{E}\!\left[\hat{F}_n(x)\right] = F(x)
+\]
+
+\[
+\mathrm{Var}\!\left(\hat{F}_n(x)\right) = \frac{F(x)\big(1-F(x)\big)}{n}
+\]
+
+\[
+\mathrm{MSE}\!\left(\hat{F}_n(x)\right) = \frac{F(x)\big(1-F(x)\big)}{n}\xrightarrow{}0
+\]
+
+\[
+\hat{F}_n(x) \xrightarrow{P} F(x)
+\]
+
+\item For any $n \ge 1$ and $z>0$,
+\[
+  \mathbb{P}\!\left\{\sqrt{n}\,\|\hat{F_n} - F\|_\infty > z\right\}
+  \le 2\,e^{-2z^2},
+\]
+where $\|F_n - F\|_\infty := \sup_{x\in\mathbb{R}} |F_n(x)-F(x)|$.
+
+\end{enumerate}
+    
+
+\section{Probability Distributions}
+% \usepackage{enumitem}
+\begin{enumerate}[nosep,leftmargin=*]
+
+\item \textbf{Point Mass} ($a$): Mean $a$; Var $0$; PDF/PMF $\delta(x-a)$; CDF $\mathbb{I}(x\ge a)$.
+
+\item \textbf{Bernoulli} ($p$): Mean $p$; Var $p(1-p)$; PMF $p^x(1-p)^{1-x},\ x\in\{0,1\}$; CDF $(1-p)\mathbb{I}(x<1)+\mathbb{I}(x\ge1)$.
+
+\item \textbf{Binomial} ($n,p$): Mean $np$; Var $np(1-p)$; PMF $\binom{n}{x}p^x(1-p)^{n-x}$; CDF $\sum_{i=0}^{x}\binom{n}{i}p^i(1-p)^{n-i}$.
+
+\item \textbf{Geometric} ($p$): Mean $1/p$; Var $(1-p)/p^2$; PMF $p(1-p)^{k-1},\ k\in\{1,2,\dots\}$; CDF $1-(1-p)^k$.
+
+\item \textbf{Poisson} ($\lambda$): Mean $\lambda$; Var $\lambda$; PMF $\lambda^k e^{-\lambda}/k!$; CDF $e^{-\lambda}\sum_{i=0}^{\lfloor k\rfloor}\lambda^i/i!$.
+
+\item \textbf{Uniform} ($a,b$): Mean $(a+b)/2$; Var $(b-a)^2/12$; PDF $1/(b-a),\ x\in[a,b]$; CDF $(x-a)/(b-a),\ x\in[a,b]$.
+
+\item \textbf{Normal} ($\mu,\sigma^2$): Mean $\mu$; Var $\sigma^2$; PDF $\frac{1}{\sqrt{2\pi\sigma^2}}e^{-(x-\mu)^2/(2\sigma^2)}$; CDF $\Phi((x-\mu)/\sigma)$.
+
+\item \textbf{Exponential} ($\lambda$): Mean $1/\lambda$; Var $1/\lambda^2$; PDF $\lambda e^{-\lambda x},\ x\ge0$; CDF $1-e^{-\lambda x},\ x\ge0$.
+
+\item \textbf{Gamma} ($\alpha,\beta$): Mean $\alpha/\beta$; Var $\alpha/\beta^2$; PDF $\beta^\alpha x^{\alpha-1}e^{-\beta x}/\Gamma(\alpha)$; CDF $\gamma(\alpha,\beta x)/\Gamma(\alpha)$.
+
+\item \textbf{Beta} ($\alpha,\beta$): Mean $\alpha/(\alpha+\beta)$; Var $\alpha\beta/[(\alpha+\beta)^2(\alpha+\beta+1)]$; PDF $x^{\alpha-1}(1-x)^{\beta-1}/B(\alpha,\beta)$; CDF $I_x(\alpha,\beta)$.
+
+\item \textbf{Student's $t$} ($\nu$): Mean $0$ ($\nu>1$); Var $\nu/(\nu-2)$ ($\nu>2$); PDF $\frac{\Gamma((\nu+1)/2)}{\sqrt{\nu\pi}\Gamma(\nu/2)}(1+x^2/\nu)^{-(\nu+1)/2}$; CDF no closed form.
+
+\item \textbf{Chi-squared} $\chi^2_k$: Mean $k$; Var $2k$; PDF $x^{k/2-1}e^{-x/2}/(2^{k/2}\Gamma(k/2))$; CDF $\gamma(k/2,x/2)/\Gamma(k/2)$.
+
+\item \textbf{Multinomial} ($n,\mathbf{p}$): $E[X_i]=np_i$; $\mathrm{Var}(X_i)=np_i(1-p_i)$; PMF $\frac{n!}{x_1!\cdots x_k!}\prod_{j=1}^k p_j^{x_j}$; CDF —.
+
+\item \textbf{Multivariate Normal} ($\boldsymbol{\mu},\Sigma$): Mean $\boldsymbol{\mu}$; Cov $\Sigma$; PDF $(2\pi)^{-k/2}|\Sigma|^{-1/2}\exp\!\big(-\tfrac12(\mathbf{x}-\boldsymbol{\mu})^\top\Sigma^{-1}(\mathbf{x}-\boldsymbol{\mu})\big)$; CDF —.
+
+\end{enumerate}
+
+
+\section{Parametric Estimation}
+\begin{enumerate}
+    \item \textbf{plug-in estimator}: Let $\theta = T(F)$ be a parameter.
+The plug-in estimator is
+$\hat{\theta}_n =T\!\big(\hat{F}_n\big)$
+(plug in the empirical CDF $\hat F_n$ for the unknown $F$).
+
+    \item If $T(F)=\int r(x)\, dF(x)$ for some function $r$, then $T$ is called a \textbf{linear functional}.
+
+    \item If $T(F)=\int r(x)\,dF(x)$, then the plug-in estimator is
+\[
+T(\hat F_n)
+= \int r(x)\,d\hat F_n(x)
+= \frac{1}{n}\sum_{i=1}^n r(X_i).
+\]
+
+\end{enumerate}
+
+\section{Method of Moments \& MLE}
+
+\subsection{Method of Moments}
+\begin{enumerate}
+    \item \textbf{j-th theoretical moment:} $\alpha_j(\theta)=\mathbb{E}_\theta[X^j]=\int x^j f(x;\theta)\,dx$
+    \item \textbf{j-th empirical moment:} $\hat{\alpha}_j=\frac{1}{n}\sum_{i=1}^n X_i^j$
+    \item \textbf{Estimator definition:} $\hat{\theta}_n$ solves $\alpha_j(\hat{\theta}_n)=\hat{\alpha}_j,\ j=1,\dots,k$
+\end{enumerate}
+
+\subsection{KL Divergence}
+\[
+\mathrm{KL}(f_\xi,f_\eta)=\int f_\xi(x)\log\frac{f_\xi(x)}{f_\eta(x)}dx
+\]
+- $\mathrm{KL}(f_\xi,f_\eta)\ge0$, $=0\iff f_\xi=f_\eta$  
+- Not symmetric: $\mathrm{KL}(f_\xi,f_\eta)\ne\mathrm{KL}(f_\eta,f_\xi)$  
+- Additive: for i.i.d.\ $n$-samples, $\mathrm{KL}(f_{\xi^n},f_{\eta^n})=n\,\mathrm{KL}(f_\xi,f_\eta)$
+
+\subsection{Maximum Likelihood Estimation (MLE)}
+\begin{enumerate}
+    \item \textbf{Likelihood:} $L_n(\theta)=\prod_{i=1}^n f(X_i;\theta)$
+    \item \textbf{Log-likelihood:} $\ell_n(\theta)=\log L_n(\theta)=\sum_{i=1}^n\log f(X_i;\theta)$
+    \item \textbf{MLE:} $\hat{\theta}_n=\arg\max_\theta \ell_n(\theta)=\arg\max_\theta \log L_n(\theta)$
+\end{enumerate}
+
+\section{MLE Properties and Bootstrap}
+
+\subsection{Properties of MLE}
+\begin{itemize}
+    \item \textbf{Consistency:} $\hat{\theta}_n \xrightarrow{P} \theta^*$.
+    \item \textbf{Equivariance:} if $\hat{\theta}_n$ is MLE for $\theta$, then $g(\hat{\theta}_n)$ is MLE for $g(\theta)$.
+    \item \textbf{Asymptotic Normality:} $(\hat{\theta}_n-\theta^*)/\mathrm{se}_c \xrightarrow{d} \mathcal{N}(0,1)$, where $\mathrm{se}_c = 1/\sqrt{I_n(\hat{\theta}_n)}$.
+    \item \textbf{Efficiency:} $\mathrm{Var}(\hat{\theta}_n) \ge 1/I_n(\theta^*)$ (Cramér–Rao bound); equality $\Rightarrow$ efficient estimator.
+\end{itemize}
+
+\subsection{Score Function}
+\[
+s(X;\theta) = \frac{\partial}{\partial\theta}\log f(X;\theta), \quad 
+\mathbb{E}_\theta[s(X;\theta)] = 0
+\]
+Joint score for i.i.d.\ sample: 
+\(
+S_n(\theta) = \sum_{i=1}^n s(X_i;\theta) = \frac{\partial \ell_n(\theta)}{\partial\theta},
+\quad \ell_n(\theta)=\sum_{i=1}^n \log f(X_i;\theta)
+\)
+
+\subsection{Fisher Information}
+\(
+I(\theta)=\mathbb{V}_\theta[s(X;\theta)]=\mathbb{E}_\theta[s(X;\theta)^2]
+=-\mathbb{E}_\theta\!\left[\frac{\partial^2}{\partial\theta^2}\log f(X;\theta)\right],
+\)
+\[
+I_n(\theta)=nI(\theta).
+\]
+Higher $I_n(\theta)\Rightarrow$ steeper likelihood $\Rightarrow$ lower variance of $\hat{\theta}_n$.
+
+\subsection{Bootstrap}
+\begin{itemize}
+    \item Goal: estimate $\mathbb{V}_F(T_n)$ where $T_n=g(X_1,\dots,X_n)$ and $F$ is unknown.
+    \item Replace $F$ by empirical $\hat{F}_n$ and simulate to approximate $\mathbb{V}_{\hat{F}_n}(T_n)$.
+\end{itemize}
+
+\subsection{Bootstrap Algorithm}
+\begin{enumerate}
+    \item Draw $X_1^*,\dots,X_n^*\sim\hat{F}_n$ (sample with replacement).
+    \item Compute $T_n^*=g(X_1^*,\dots,X_n^*)$.
+    \item Repeat $B$ times to get $T_{n,1}^*,\dots,T_{n,B}^*$.
+    \item Estimate variance:
+    \[
+      v_{\text{boot}}=\frac{1}{B}\sum_{b=1}^B\!\left(T_{n,b}^*-\frac{1}{B}\sum_{r=1}^BT_{n,r}^*\right)^2
+    \]
+    \item Then $\mathbb{V}_F(T_n)\approx v_{\text{boot}}$ and $\mathrm{se}_{\text{boot}}=\sqrt{v_{\text{boot}}}$.
+\end{enumerate}
+Normal-based CI: $(T_n - z_{\alpha/2}\,\mathrm{se}_{\text{boot}},\; T_n + z_{\alpha/2}\,\mathrm{se}_{\text{boot}})$.
+
+\section{Linear and Logistic Regression}
+
+\subsection{Linear Regression}
+\begin{itemize}
+    \item \textbf{Model:} $Y_i = \beta_0 + \beta_1 X_i + \varepsilon_i$, \quad $\mathbb{E}[\varepsilon_i|X_i]=0$, \; $\mathbb{V}(\varepsilon_i|X_i)=\sigma^2$
+    \item \textbf{Regression function:} $r(x)=\mathbb{E}(Y|X=x)=\beta_0+\beta_1x$
+    \item \textbf{OLS estimators:}
+    \[
+      \hat{\beta}_1 = \frac{\sum_i (X_i - \bar{X})(Y_i - \bar{Y})}{\sum_i (X_i - \bar{X})^2}, 
+      \quad 
+      \hat{\beta}_0 = \bar{Y} - \hat{\beta}_1\bar{X}
+    \]
+    \item \textbf{Residuals:} $\hat{\varepsilon}_i = Y_i - (\hat{\beta}_0 + \hat{\beta}_1 X_i)$
+    \item \textbf{Residual variance:} $\hat{\sigma}^2 = \frac{1}{n-2}\sum_i \hat{\varepsilon}_i^2$
+    \item \textbf{Variance of estimators:}
+    \[
+      \mathbb{V}(\hat{\beta}_1|X) = \frac{\sigma^2}{n s_X^2}, \quad
+      \mathbb{V}(\hat{\beta}_0|X) = \sigma^2\!\left(\frac{1}{n} + \frac{\bar{X}^2}{S_{xx}}\right)
+    \]
+    \item \textbf{CI:} $\hat{\beta}_j \pm z_{\alpha/2}\,\mathrm{se}(\hat{\beta}_j)$, \; $j=0,1$
+\end{itemize}
+
+\subsection{Logistic Regression}
+\begin{itemize}
+    \item \textbf{Model:} For binary $Y_i\in\{0,1\}$,
+    \[
+    p_i = \Pr(Y_i=1|X_i=x_i) = 
+    \frac{\exp(\sum_{j=1}^k \beta_j x_{ij})}{1+\exp(\sum_{j=1}^k \beta_j x_{ij})}
+    \]
+    \item \textbf{Logit form:} $\log\frac{p_i}{1-p_i} = f(x_i,\beta) = \sum_{j=1}^k \beta_j x_{ij}$
+    \item \textbf{Decision rule:}
+    \(
+    \hat{Y}=
+      \begin{cases}
+        1, & f(x,\hat{\beta})>0\\
+        0, & \text{otherwise}
+      \end{cases}
+    \\\text{Boundary: } f(x,\hat{\beta})=0 \;(\text{i.e. } p=0.5)
+    \)
+    \item \textbf{Likelihood:}
+    \(
+      L(\beta)=\prod_{i=1}^n p_i(\beta)^{Y_i}\,[1-p_i(\beta)]^{1-Y_i}, 
+      \quad \hat{\beta}=\arg\max_\beta L(\beta)
+    \)
+    (solved numerically).
+    \item \textbf{Extended form:} use basis $\phi(x)$: 
+    \[
+      f(x,\beta)=\beta^\top \phi(x)
+    \]
+\end{itemize}
+
+\section{Nonparametric Estimation}
+
+\subsection{MISE and Bias–Variance Decomposition}
+\begin{itemize}
+    % \item \textbf{MSE:} $\mathrm{MSE}(\hat{p}_n, p; x_0)=\mathbb{E}_p[(\hat{p}_n(x_0)-p(x_0))^2]$
+    \item \textbf{MISE:} $\mathrm{MISE}(\hat{p}_n,p)=\mathbb{E}_p\!\left[\int (\hat{p}_n(x)-p(x))^2dx\right]$
+    \item \textbf{Bias–Variance decomposition:}
+    \[
+    \mathrm{MSE}=\text{Bias}^2+\mathbb{V},\quad 
+    % \mathrm{MISE}=\int\text{Bias}^2(x)dx+\int\mathbb{V}[\hat{p}_n(x)]dx
+    \]
+\end{itemize}
+
+\subsection{Histogram Estimator}
+\begin{itemize}
+    \item Partition $[a,b)$ into $N$ bins $\Delta_i=[a+ih,a+(i+1)h)$, width $h=(b-a)/N$.
+    \[
+    \hat{p}_n(x)=\frac{1}{nh}\sum_{i=0}^{N-1}\nu_i\,\mathbb{I}\{x\in\Delta_i\}, \quad \nu_i=\#\{X_j\in\Delta_i\}
+    \]
+    \item $\mathbb{E}[\hat{p}_n(x)]\approx p(x)$.
+    \item \textbf{MISE approximation:}
+    \[
+    \mathrm{MISE}\approx
+    \left[\int (p'(x))^2dx\right]\frac{h^2}{12}+\frac{1}{nh}
+    \]
+    - Bias $\propto h$, \quad Variance $\propto \tfrac{1}{nh}$.
+    % \item \textbf{Optimal bandwidth:} $h^*\propto n^{-1/3}$, \quad $\mathrm{MISE}=O(n^{-2/3})$
+\end{itemize}
+
+\subsection{Kernel Density Estimation (KDE)}
+\begin{itemize}
+    \item \textbf{Kernel:} $K(x)\ge0$, $\int K(x)dx=1$, $\int xK(x)dx=0$, $\sigma_K^2=\int x^2K(x)dx$.
+    \item \textbf{Examples:} Rectangular, Triangular, Epanechnikov, Gaussian.
+    \item \textbf{KDE:}
+    \[
+    \hat{p}_n(x)=\frac{1}{nh}\sum_{i=1}^n K\!\left(\frac{x-X_i}{h}\right)
+    \]
+    \item \textbf{MISE:}
+    \[
+    \mathrm{MISE}\approx
+    \frac{1}{4}\sigma_K^4h^4\!\int\!(p''(x))^2dx+\frac{1}{nh}\!\int\!K^2(x)dx
+    \]
+    % \item \textbf{Optimal bandwidth:} 
+    % \[
+    % h^*=\!\left(\frac{\int K^2(x)dx}{n(\int x^2K(x)dx)^2\int (p''(x))^2dx}\right)^{1/5},
+    % \quad \mathrm{MISE}=O(n^{-4/5})
+    % \]
+    - Bias $\propto h^2$, Variance $\propto \tfrac{1}{nh}$.
+\end{itemize}
+
+\subsection{Nadaraya–Watson Regression Estimator}
+\begin{itemize}
+    \item Model: $Y_i=r(X_i)+\varepsilon_i$, \quad $\mathbb{E}[\varepsilon_i]=0$, $\mathbb{V}[\varepsilon_i]=\sigma^2$.
+    \item \textbf{Estimator:}
+    \[
+    \hat{r}_{NW}(x)=\frac{\sum_{i=1}^n K\!\left(\frac{x-X_i}{h}\right)Y_i}{\sum_{j=1}^n K\!\left(\frac{x-X_j}{h}\right)}
+    =\sum_{i=1}^n w_i(x)Y_i    
+    \]
+    \[
+    w_i(x)=\frac{K(\frac{x-X_i}{h})}{\sum_j K(\frac{x-X_j}{h})}
+    \]
+    \item \textbf{MISE:}
+    \[
+    \mathrm{MISE}(\hat{r}_{NW},r)\approx C_1h^4+C_2\frac{1}{nh}
+    \Rightarrow h^*\propto n^{-1/5},\;\mathrm{MISE}=O(n^{-4/5})
+    \]
+    - Bias $\propto h^2$, Variance $\propto \tfrac{1}{nh}$.
+\end{itemize}
+
+\section{Hypothesis Testing}
+
+\subsection{Basic Concepts}
+\begin{itemize}
+    \item \textbf{Hypothesis:} statement about a population parameter $\theta$.
+    \item \textbf{Formulation:} $H_0:\theta\in\Theta_0$ (null) vs.\ $H_1:\theta\in\Theta_1$ (alternative).
+    \item \textbf{Simple} if $\theta$ completely specified, otherwise \textbf{composite}.
+    \item \textbf{Test statistic:} $T(X_1,\ldots,X_n)$ summarizes evidence against $H_0$.
+    \item \textbf{Critical region:} $\chi_1=\{X_n:T(X_n)>c_\alpha\} \Rightarrow$  reject $H_0$.
+\end{itemize}
+
+\subsection{Errors and Power}
+\begin{itemize}
+    \item \textbf{Type I error:} reject $H_0$ when true; probability $\alpha$ (significance level).
+    \item \textbf{Type II error:} fail to reject $H_0$ when $H_1$ true; probability $\beta$.
+    \item \textbf{Power:} $1-\beta=P(\text{reject }H_0|H_1\text{ true})$.
+    \item \textbf{Most powerful test:} maximizes power among all tests with fixed $\alpha$.
+\end{itemize}
+
+\subsection{P-value}
+\begin{itemize}
+    \item $p\text{-value}=P(T(X_n)\ge T_{\text{obs}}|H_0)$.
+    \item Interpretation: smallest $\alpha$ for which $H_0$ would be rejected.
+    \item Typical cutoffs: $p<0.01$ strong, $p<0.05$ moderate, $p<0.10$ weak evidence.
+\end{itemize}
+
+\subsection{Classical Tests}
+\begin{itemize}
+    \item \textbf{Z-test (known $\sigma^2$):}
+    \[
+      T=\frac{\sqrt{n}(\bar X-\mu_0)}{\sigma}\sim N(0,1)\text{ under }H_0.
+    \]
+    Reject $H_0$ if $|T|>z_{\alpha/2}$.
+    \item \textbf{Student’s $t$-test (unknown $\sigma^2$):}
+    \[
+      T=\frac{\sqrt{n}(\bar X-\mu_0)}{S_n}\sim t_{n-1}.
+    \]
+    Reject $H_0$ if $|T|>t_{n-1,\alpha/2}$.
+    \item \textbf{One-sided:} use $>$ or $<$ quantiles accordingly.
+\end{itemize}
+
+\subsection{Wald Test}
+\begin{itemize}
+    \item $H_0:\theta=\theta_0$, $H_1:\theta\neq\theta_0$.
+    \[
+      W_n=\frac{\hat\theta_n-\theta_0}{\operatorname{se}_c(\hat\theta_n)}\xrightarrow{d}N(0,1).
+    \]
+    Reject $H_0$ if $|W_n|>z_{\alpha/2}$.
+    \item \textbf{CI equivalence:} reject iff $\theta_0\notin(\hat\theta_n\pm z_{\alpha/2}\operatorname{se}_c)$.
+    \item \textbf{p-value:} $2\Phi(-|W_n|)$.
+\end{itemize}
+
+\subsection{Pearson’s $\chi^2$ Test}
+\begin{itemize}
+    \item For categorical data $N_1,\ldots,N_k$ from Multinomial$(n,p^*)$.
+    \item Test $H_0:p^*=p_0$ vs.\ $H_1:p^*\neq p_0$.
+    \[
+      Q_n=\sum_{j=1}^k\frac{(N_j-np_{0j})^2}{np_{0j}}\xrightarrow{d}\chi^2_{k-1}.
+    \]
+    Reject $H_0$ if $Q_n>\chi^2_{k-1,\alpha}$.
+    \item $p\text{-value}=P(\chi^2_{k-1}>Q_n)$.
+\end{itemize}
+
+\subsection{Likelihood-Ratio Test}
+\begin{itemize}
+    \item $H_0:\theta\in\Theta_0$ vs.\ $H_1:\theta\in\Theta_1$.
+    \[
+      \lambda_n=2\log\frac{\sup_{\theta\in\Theta}L_n(\theta)}{\sup_{\theta\in\Theta_0}L_n(\theta)}\xrightarrow{d}\chi^2_{r-q},
+    \]
+    where $r-q$ is number of restrictions in $H_0$.
+    \item Reject $H_0$ if $\lambda_n>\chi^2_{r-q,\alpha}$.
+\end{itemize}
+
+\subsection{Neyman–Pearson Lemma}
+\[
+T_n=\frac{L_n(\theta_1)}{L_n(\theta_0)},\quad
+\text{Reject }H_0\text{ if }T_n>t_\alpha,\;P_{\theta_0}(T_n>t_\alpha)=\alpha.
+\]
+Gives the most powerful test for two simple hypotheses.
+
+\subsection{Permutation Test}
+\begin{itemize}
+    \item Test equality of two distributions $F_X=F_Y$.
+    \item Statistic $T=|\bar X-\bar Y|$.
+    \item Combine samples and permute labels; $p$-value$=\frac{1}{N!}\sum_{j=1}^{N!}\mathbb{I}(T_j\ge T_{\text{obs}})$.
+    \item Exact (non-asymptotic) test; no distributional assumption.
+\end{itemize}
+
+\subsection{Multiple Testing}
+\begin{itemize}
+    \item Testing $m$ hypotheses inflates family-wise error rate (FWER):
+    \[
+      \text{FWER}=P(\text{at least one false rejection})\le m\alpha.
+    \]
+    \item \textbf{Bonferroni correction:} test each at level $\alpha/m$.
+    \item Ensures $P(\text{any false rejection})\le\alpha$.
+\end{itemize}
+
+\section{Bayesian Inference and Gaussian Processes}
+
+\subsection{Bayesian Framework}
+\begin{itemize}
+    \item \textbf{Posterior:} $p(w|\mathcal{D}) = \dfrac{p(\mathcal{D}|w)p(w)}{p(\mathcal{D})}$, where 
+    $\mathcal{D}=\{x_i,y_i\}_{i=1}^n$.
+    \item \textbf{Prior:} $p(w)$ encodes belief about $w$ before data; 
+          \textbf{Likelihood:} $p(\mathcal{D}|w)$ measures data fit; 
+          \textbf{Posterior:} updated belief.
+    \item \textbf{MAP estimate:} $\hat{w}_{MAP}=\arg\max_w[\log p(\mathcal{D}|w)+\log p(w)]$ (regularized MLE).
+    \item \textbf{Posterior predictive:} $p(y|x,\mathcal{D})=\int p(y|x,w)p(w|\mathcal{D})\,dw$.
+\end{itemize}
+
+\subsection{Bernstein–von Mises Theorem}
+\[
+D(w^*)(w-w_n)\,|\,\mathcal{D}_n \xrightarrow{TV} \mathcal{N}(0,I_p),
+\]
+Posterior asymptotically Gaussian around MLE $w_n$, independent of prior $p(w)$.
+
+\subsection{Conjugate Priors}
+\begin{itemize}
+    \item \textbf{Definition:} A prior $p(w)$ is conjugate to likelihood $p(z|w)$ if posterior $p(w|z)$
+          has the same functional form as $p(w)$.
+    \item \textbf{Examples:}
+    \[
+    \begin{aligned}
+    &\text{Beta} \leftrightarrow \text{Bernoulli or Binomial},\\
+    &\text{Dirichlet} \leftrightarrow \text{Multinomial},\\
+    &\text{Gaussian} \leftrightarrow \text{Gaussian (known variance)}.
+    \end{aligned}
+    \]
+    \item \textbf{Dirichlet–Multinomial posterior:}
+    \[
+    p(w|z)\propto \prod_i w_i^{z_i+\alpha_i-1},
+    \quad
+    \]
+    \[
+    \Rightarrow w|z\sim \text{Dirichlet}(\alpha_i+z_i).
+    \]
+\end{itemize}
+
+\subsection{Bayesian Linear Regression}
+\begin{itemize}
+    \item Model: $y_i=w^\top\phi(x_i)+\varepsilon_i$, \; $\varepsilon_i\sim\mathcal{N}(0,\beta^{-1})$.
+    \item Prior: $p(w)=\mathcal{N}(0,\alpha^{-1}I)$.
+    \item Likelihood: $p(\mathcal{D}|w)=\mathcal{N}(Y|\Phi w,\beta^{-1}I)$.
+    \item Posterior:
+    \[
+    p(w|\mathcal{D})=\mathcal{N}(w|\omega_n,S_n),\quad
+    S_n=(\alpha I+\beta\Phi^\top\Phi)^{-1},\;
+    \]
+    \[
+    \omega_n=\beta S_n\Phi^\top Y.
+    \]
+    \item Predictive distribution:
+    \[
+    p(y|x,\mathcal{D})=\mathcal{N}(y|\omega_n^\top\phi(x),\sigma_n^2(x)),\quad
+    \sigma_n^2(x)=\frac{1}{\beta}+\phi(x)^\top S_n\phi(x).
+    \]
+\end{itemize}
+
+\subsection{Gaussian Processes (GPs)}
+\begin{itemize}
+    \item \textbf{Definition:} $f(x)\sim \text{GP}(m(x),k(x,x'))$  
+    — a collection of random variables with any finite subset jointly Gaussian:
+    \[
+    f_{1:n}\sim \mathcal{N}(m(x_{1:n}),K(x_{1:n},x_{1:n})).
+    \]
+    \item \textbf{Mean function:} $m(x)=\mathbb{E}[f(x)]$ (often $0$).  
+          \textbf{Covariance function:} $k(x,x')=\text{Cov}(f(x),f(x'))$.
+    \item \textbf{Common kernels:}
+      \begin{align*}
+      &\text{Squared Exponential: } k(x,x')=\sigma^2\exp\!\left[-\frac{(x-x')^2}{2\ell^2}\right],\\
+      &\text{Periodic, Linear, or Matérn kernels: encode smoothness or periodicity.}
+      \end{align*}
+\end{itemize}
+
+\subsection{GP Regression}
+\begin{itemize}
+    \item Training data: $(x_1,\ldots,x_n)$, observations $y_i=f(x_i)+\varepsilon_i$, $\varepsilon_i\sim\mathcal{N}(0,\sigma^2)$.
+    \item Predictive posterior:
+    \[
+    \begin{aligned}
+      \mu_*(x_*)&=m(x_*)+k_*^\top(K+\sigma^2 I)^{-1}(y-m),\\
+      \sigma_*^2(x_*)&=k(x_*,x_*)-k_*^\top(K+\sigma^2 I)^{-1}k_*,
+    \end{aligned}
+    \]
+    where $k_*=\big[k(x_*,x_1),\ldots,k(x_*,x_n)\big]^\top$.
+    \item \textbf{Log-marginal likelihood:}
+    \[
+    \log p(y|X)= -\frac{1}{2}(y-m)^\top(K+\sigma^2 I)^{-1}(y-m)
+      -\frac{1}{2}\log|K+\sigma^2 I| -\frac{n}{2}\log(2\pi).
+    \]
+    Parameters of $k$ and $\sigma^2$ can be learned by maximizing this.
+\end{itemize}
+
+\subsection{Active Learning (Design of Experiments)}
+\begin{itemize}
+    \item Goal: choose next point $x_t$ that maximizes expected information gain or uncertainty.
+    \item Utility example: $u(x|\mathcal{D}_{t-1})=\hat{\sigma}^2(x)$.
+    \item Algorithm: iteratively select $x_t=\arg\max_x u(x|\mathcal{D}_{t-1})$, sample $y_t=f(x_t)+\varepsilon_t$, update GP posterior.
+\end{itemize}
+
+
+
+\end{multicols*}
+
+\end{document}
